@@ -18,6 +18,10 @@ export const ROUTERS = {
     PATH: '/dashboard',
     LABEL: 'Dashboard',
   },
+  TASK_MANAGEMENT: {
+    PATH: '/task-management',
+    LABEL: 'Task Management',
+  },
   PROFILE: {
     PATH: '/profile',
     LABEL: 'Profile',

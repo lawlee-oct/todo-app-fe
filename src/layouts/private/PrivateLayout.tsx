@@ -1,11 +1,19 @@
 import React, { useMemo } from 'react';
-import { LogoutOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  CheckSquareOutlined,
+  LogoutOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Avatar, Dropdown, Layout, Menu, MenuProps, Row, Typography } from 'antd';
-import { Link, useLocation, useOutlet } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useOutlet } from 'react-router-dom';
 
 import { ROUTERS } from 'src/constants/routers';
 
 import { PrivateLayoutStyle } from './styled';
+import { useAppDispatch } from 'src/stores';
+import { logoutAction } from 'src/stores/screens/publicScreens/auth/auth.action';
 
 const { Text, Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
@@ -14,12 +22,21 @@ const PrivateLayout: React.FC = () => {
   const outlet = useOutlet();
   const location = useLocation();
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const MENU = [
     {
       key: 'DASHBOARD',
       icon: <UploadOutlined />,
       label: <Link to={ROUTERS.DASHBOARD.PATH}>Dashboard</Link>,
       path: ROUTERS.DASHBOARD.PATH,
+    },
+    {
+      key: 'TASK_MANAGEMENT',
+      icon: <CheckSquareOutlined />,
+      label: <Link to={ROUTERS.TASK_MANAGEMENT.PATH}>Task management</Link>,
+      path: ROUTERS.TASK_MANAGEMENT.PATH,
     },
     {
       key: 'ACCOUNT',
@@ -38,6 +55,16 @@ const PrivateLayout: React.FC = () => {
       label: <Text>Logout</Text>,
       icon: <LogoutOutlined />,
       key: '0',
+      onClick: () => {
+        void dispatch(
+          logoutAction({
+            callback: () => {
+              localStorage.clear();
+              navigate(ROUTERS.LOGIN.PATH);
+            },
+          }),
+        );
+      },
     },
   ];
 

@@ -11,8 +11,8 @@ const UseFormLogin = (): Login.useForm => {
   const dispatch = useAppDispatch();
 
   const initialValues: Login.initialValues = {
-    email: 'test@email.com',
-    password: 'Test123456@',
+    email: 'lam@gmail.com',
+    password: '123123123',
   };
 
   const handleLogin = async (value): Promise<void> => {
