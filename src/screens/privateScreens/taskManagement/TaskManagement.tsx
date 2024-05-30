@@ -24,6 +24,7 @@ const TaskManagement: React.FC = () => {
   const [dataEdit, setDataEdit] = useState<{ id: string | number; title: string }>({ id: '', title: '' });
 
   const showModal = (type: 'edit' | 'create'): void => {
+    resetForm();
     setIsModalOpen({ isShow: true, type });
   };
 
@@ -44,6 +45,7 @@ const TaskManagement: React.FC = () => {
 
   const handleCancel = (): void => {
     setIsModalOpen({ isShow: false });
+    resetForm();
   };
 
   const columns = [
@@ -105,7 +107,7 @@ const TaskManagement: React.FC = () => {
     },
   });
 
-  const { setFieldValue, handleSubmit, getFieldProps, errors, touched, values } = formik;
+  const { setFieldValue, handleSubmit, getFieldProps, resetForm, errors, touched, values } = formik;
 
   useEffect(() => {
     void dispatch(getTodosAction());
